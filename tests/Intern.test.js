@@ -5,8 +5,8 @@ describe('Intern Profile', () => {
     it('After user filled the data, export HTML codes', () => {
     const answers = { name: 'Zaki', id: '3', school: 'Forest Hill' };
     const resultHTML =
-`<div class="card">
-<div class="card-header">
+`<div class="card col-3">
+<div class="card-header team-member">
 <h2 class="card-title">Zaki</h2>
 <h3 class="card-title">Intern</h3>
 </div>
