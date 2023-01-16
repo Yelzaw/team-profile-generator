@@ -8,7 +8,7 @@ describe('Intern Profile', () => {
 `<div class="card col-3">
 <div class="card-header team-member">
 <h2 class="card-title">Zaki</h2>
-<h3 class="card-title">Intern</h3>
+<h3 class="card-title"><span class="material-symbols-outlined">cooking</span> Intern</h3>
 </div>
 <div class="card-body">
 <ul class="list-group">

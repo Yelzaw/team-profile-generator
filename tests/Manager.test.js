@@ -8,7 +8,7 @@ describe('Manager Profile', () => {
 `<div class="card col-3">
 <div class="card-header team-member">
 <h2 class="card-title">Elvan</h2>
-<h3 class="card-title">Manager</h3>
+<h3 class="card-title"><span class="material-symbols-outlined">emoji_food_beverage</span> Manager</h3>
 </div>
 <div class="card-body">
 <ul class="list-group">
