@@ -9,12 +9,13 @@ When the project team want to create Project Team Profile, this application will
 - Forum and in-class discussion 
 - Discussion on https://stackoverflow.com/
 - https://www.w3schools.com
+- Google fonts
 
 ## License
 MIT License
 
 ## Completed Works - Walkthrough Video Link and Github
 
-- Video [link](https://mega.nz/file/v8cCnSSC#4wc1-LGuhspHhq92r4S6t6fKC_vnb4JYz8jgOKEfReo)
+- Video [link](https://mega.nz/file/SgUgzLCa#2wodwO7LIwXvVcC_6FIQJk_z8xk8iey2wk_HnF2r5j0)
 
 - https://github.com/Yelzaw/team-profile-generator
