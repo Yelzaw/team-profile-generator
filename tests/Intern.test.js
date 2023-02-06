@@ -2,22 +2,22 @@ const Intern = require("../lib/Intern")
 
 describe('Intern Profile', () => {
   
-  it('After filled the data, new Engineer will add to profile', () => {
-    const answers = new Engineer('Yel', '2', 'yza@gmail.com', 'yelzaw');
+  it('Check the name of Intern Result', () => {
+    const answers = new Intern('Zak', 3, 'zak@mail.com', 'Forest Hill');
 
-    expect(answers.name).toEqual('Yel');
+    expect(answers.name).toEqual('Zak');
     });
 
-  it('Check the result of input in Github',()=>{
-    const answers = new Engineer('Yel', '2', 'yza@gmail.com', 'yelzaw');
+  it('Check the result of input School',()=>{
+    const answers = new Intern('Zak', 3, 'zak@mail.com', 'Forest Hill');
     
-    expect(answers.github).toEqual(expect.any(String));
-    expect(answers.github).toEqual('yelzaw');
+    expect(answers.school).toEqual(expect.any(String));
+    expect(answers.school).toEqual('Forest Hill');
   })
 
   it('Get Role',()=>{
-    const answers = new Engineer('Yel', '2', 'yza@gmail.com', 'yelzaw');
+    const answers = new Intern('Zak', 3, 'zak@mail.com', 'Forest Hill');
 
-    expect(answers.getRole()).toEqual('Engineer');
+    expect(answers.getRole()).toEqual('Intern');
   })
  });
