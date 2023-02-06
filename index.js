@@ -7,6 +7,8 @@ const Engineer = require("./lib/Engineer");
 
 const Intern = require("./lib/Intern");
 
+const Render = require("./src/generateHTML");
+const render = new Render();
 
 var teamMember = [];
     // Start with questions for manager profile 
@@ -21,7 +23,7 @@ var teamMember = [];
             {
                 type:'number',
                 name:'id',
-                message:'Please fill the ID for manager?',
+                message:'Please fill the ID for manager.',
                 validate: (answer) => {
                     if (isNaN(answer)){
                         return 'Please enter valid number';
@@ -34,14 +36,14 @@ var teamMember = [];
                 type: 'input',
                 name: 'email',
                 validate: function(email)        {
-                // Regex mail check (return true if valid mail)
+                // mail check (return true if valid mail)
                 return /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+([^<>()\.,;:\s@\"]{2,}|[\d\.]+))$/.test(email);
                 }                
             },
             {
                 type:'number',
                 name:'office',
-                message:'Please fill the office number of manager?',
+                message:'Please fill the office number of manager.',
                 validate: (answer) => {
                     if (isNaN(answer)){
                         return 'Please enter valid number';
@@ -51,14 +53,10 @@ var teamMember = [];
             },
         ])
         .then ((answers)=>{
-            // Generate Manager profile
-            console.log(answers);
+            // Store manager information
             const manager = new Manager(answers.name, answers.id, answers.email, answers.office);
-            // const part = Object.keys(manager);
-            // console.log(part);
-            console.log(manager.getRole());
+            
             teamMember.push(manager);
-            console.log(teamMember);
         })
         .then(()=>{addictionMember()})
 }
@@ -88,7 +86,7 @@ var teamMember = [];
                         {
                             type:'number',
                             name:'id',
-                            message:'Please fill the ID for engineer?',
+                            message:'Please fill the ID for engineer.',
                             validate: (answer) => {
                                 if (isNaN(answer)){
                                     return 'Please enter valid number';
@@ -101,25 +99,25 @@ var teamMember = [];
                             type: 'input',
                             name: 'email',
                             validate: function(email)        {
-                            // Regex mail check (return true if valid mail)
+                            // Mail check (return true if valid mail)
                             return /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+([^<>()\.,;:\s@\"]{2,}|[\d\.]+))$/.test(email);
                             }                
                         },
                         {
                             type:'input',
                             name:'github',
-                            message:'Please fill the name of github?',                            
+                            message:'Please fill the name of github.',                            
                         },
                     ])
                     .then ((answers)=>{
-                        console.log(answers);
+                        // console.log(answers);
                         const engineer = new Engineer(answers.name, answers.id, answers.email, answers.github);
-                        console.log(engineer);
+                        // console.log(engineer);
                         teamMember.push(engineer);
-                        console.log(teamMember);
+                        // console.log(teamMember);
                     })    
                     .then (() => {
-                        console.log(teamMember);
+                        // console.log(teamMember);
                         return addictionMember(teamMember);
                     })                              
                 } else if (val.answer === 'Intern'){
@@ -134,7 +132,7 @@ var teamMember = [];
                         {
                             type:'number',
                             name:'id',
-                            message:'Please fill the ID for intern?',
+                            message:'Please fill the ID for intern.',
                             validate: (answer) => {
                                 if (isNaN(answer)){
                                     return 'Please enter valid number';
@@ -147,104 +145,51 @@ var teamMember = [];
                             type: 'input',
                             name: 'email',
                             validate: function(email)        {
-                            // Regex mail check (return true if valid mail)
+                            // mail check (return true if valid mail)
                             return /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+([^<>()\.,;:\s@\"]{2,}|[\d\.]+))$/.test(email);
                             }                
                         },
                         {
                             type:'input',
                             name:'school',
-                            message:'Please fill the school name of intern?',        
+                            message:'Please fill the school name of intern.',        
                         },
                     ])
                     .then ((answers)=>{
-                        console.log(answers);
+                        // Store intern data into team
                         const intern = new Intern(answers.name, answers.id, answers.email, answers.school);
-                        console.log(intern);
+                        
                         teamMember.push(intern);
-                        console.log(teamMember);
                     })    
                     .then (() => {
-                        console.log(teamMember);
+                        // Loop the questions
                         return addictionMember(teamMember);
                     })         
                 } else {
-                    console.log("Team Profile have created.")
+                    let teamDataForHTML=""; 
+
+                    for(let i=0; i<teamMember.length; i++){
+                        //Filtering data for team cards
+                        if(teamMember[i].getRole()==="Manager"){                            
+                            teamDataForHTML += render.generateManager(teamMember[i]);
+                        } else if(teamMember[i].getRole()==="Engineer"){
+                            const {name, id, email, github} = teamMember[i];
+                            teamDataForHTML += render.generateEngineer({name, id, email, github})
+                        } else if(teamMember[i].getRole()==="Intern"){
+                            const {name, id, email, school} = teamMember[i];
+                            teamDataForHTML += render.generateIntern({name, id, email, school})
+                        }    
+                    }
+                    
+                    // Export HTML and CSS file
+                    const finalTeamProfile = render.generateHTML(teamDataForHTML);
+                    fs.writeFile(`./dist/sample-index.html`, finalTeamProfile,(err) =>
+                    err ? console.log(err) : console.log('Generated team profile ....'));
+                    fs.writeFile(`./dist/style.css`, render.generateCSS(),(err) =>
+                    err ? console.log(err) : console.log());
+
                 }
             })
         }
-    //     .then (() => {
-    //         // Prompt the question for any additional team member
-    //     this.addictionMember();
-    //     })
-    // }
-    // // Function to add another team memeber profile
-    // addictionMember(){
-    //     else {
-    //                 //if user choose completed, HTML file will be exported wit full code of HTML
-    //                 fs.writeFile(`./dist/sample-index.html`, this.generateTeam(teamMember),(err) =>
-    //                 err ? console.log(err) : console.log('Generated team profile ....'));
-    //                 fs.writeFile(`./dist/style.css`, this.generateCSS(),(err) =>
-    //                 err ? console.log(err) : console.log());
-                    
-    //             }
-
-    //         })
-
-
-
+    
 creatTeam()
-
-
-
-
-
-
-
- 
-
-    // getEmployee(){
-    //     console.log([this.name, this.id, this.email, this.role])
-    //    return [this.name, this.id, this.email, this.role];
-    // }
-
-//                 .then ((answers)=>{
-//                     //Generate intern profile
-//                     const intern = new Intern();
-//                     teamMember += intern.generateIntern(answers);//use Intern class to generate codes of HTML
-//                 })    
-//                 .then (() => {
-//                 this.addictionMember();
-//                 })         
-//             } else {
-//                 //if user choose completed, HTML file will be exported wit full code of HTML
-//                 fs.writeFile(`./dist/sample-index.html`, this.generateTeam(teamMember),(err) =>
-//                 err ? console.log(err) : console.log('Generated team profile ....'));
-//                 fs.writeFile(`./dist/style.css`, this.generateCSS(),(err) =>
-//                 err ? console.log(err) : console.log());
-                
-//             }
-
-//         })
-// }
-
-// function generateCSS(){
-//     const styleCSS =
-//     `* {
-//     box-sizing: border-box;
-//   }   
-//   .team-member {
-//     background-color: bisque;
-//     color: blue;
-//   }
-//   .material-symbols-outlined {
-//     font-variation-settings:
-//     'FILL' 0,
-//     'wght' 400,
-//     'GRAD' 0,
-//     'opsz' 48
-//   }
-//   `
-//   return styleCSS;
-// }
-

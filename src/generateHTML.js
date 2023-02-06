@@ -1,11 +1,57 @@
+const Engineer = require("../lib/Engineer");
 
-//Generate Manager Profile HTML Codes
-generateEmployee = ({name, id, email, office, role}) =>{
-        const contentEmployee = 
+//Generate Profile HTML Codes
+class Render{
+    //Generate Intern HTML card
+generateIntern = ({name, id, email, school}) => {
+    // const {name, id, email, school} = intern;
+    const contentIntern =
+    `<div class="card col-3">
+    <div class="card-header team-member">
+    <h2 class="card-title">${name}</h2>
+    <h3 class="card-title"><span class="material-symbols-outlined">cooking</span> Intern</h3>
+    </div>
+    <div class="card-body">
+    <ul class="list-group">
+    <li class="list-group-item">ID: ${id}</li>
+    <li class="list-group-item">Email:<a href="mailto:${email}:">${email}</a></li>
+    <li class="list-group-item">School:${school}</li>
+    </ul>
+    </div>
+    </div>
+    `
+    return contentIntern;
+}   
+
+//Generate Engineer HTML card
+generateEngineer = ({name, id, email, github}) => {
+    // const {name, id, email, github} = engineer;
+    const contentEngineer =
+    `<div class="card col-3">
+<div class="card-header team-member">
+<h2 class="card-title">${name}</h2>
+<h3 class="card-title"><span class="material-symbols-outlined">build</span> Engineer</h3>
+</div>
+<div class="card-body">
+<ul class="list-group">
+<li class="list-group-item">ID: ${id}</li>
+<li class="list-group-item">Email:<a href="mailto:${email}:">${email}</a></li>
+<li class="list-group-item">Github:<a href="https://github.com/${github}" target="_blank">${github}</a></li>
+</ul>
+</div>
+</div>
+    `
+    return contentEngineer;
+}   
+
+//Generate Manager HTML card
+generateManager = (manager) =>{
+    const {name, id, email, office} = manager;
+        const contentManager = 
 `<div class="card col-3">
 <div class="card-header team-member">
 <h2 class="card-title">${name}</h2>
-<h3 class="card-title"><span class="material-symbols-outlined">emoji_food_beverage</span>${role}</h3>
+<h3 class="card-title"><span class="material-symbols-outlined">emoji_food_beverage</span> Manager</h3>
 </div>
 <div class="card-body">
 <ul class="list-group">
@@ -16,10 +62,11 @@ generateEmployee = ({name, id, email, office, role}) =>{
 </div>
 </div>
 `
-        return contentEmployee;
+        return contentManager;
     }
 
-generateTeamProfile = (teamMember) => {
+    //Generate Final Team Profile HTML
+generateHTML = (teamMember) => {
      const contentsTeam = 
         `<!DOCTYPE html>
         <html lang="en">
@@ -56,6 +103,27 @@ generateTeamProfile = (teamMember) => {
         return contentsTeam;
     }    
 
-    module.exports = generateEmployee(), generateTeamProfile();
+    //Support CSS Style
+generateCSS(){
+    const styleCSS =
+    `* {
+    box-sizing: border-box;
+  }   
+  .team-member {
+    background-color: bisque;
+    color: blue;
+  }
+  .material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48
+  }
+  `
+  return styleCSS;
+}
+}
+    module.exports = Render;
 
 
