@@ -1,25 +1,23 @@
 const Intern = require("../lib/Intern")
 
 describe('Intern Profile', () => {
+  
+  it('After filled the data, new Engineer will add to profile', () => {
+    const answers = new Engineer('Yel', '2', 'yza@gmail.com', 'yelzaw');
 
-    it('After user filled the data, export HTML codes', () => {
-    const answers = { name: 'Zaki', id: '3', school: 'Forest Hill' };
-    const resultHTML =
-`<div class="card col-3">
-<div class="card-header team-member">
-<h2 class="card-title">Zaki</h2>
-<h3 class="card-title"><span class="material-symbols-outlined">cooking</span> Intern</h3>
-</div>
-<div class="card-body">
-<ul class="list-group">
-<li class="list-group-item">ID: 3</li>
-<li class="list-group-item">School:Forest Hill</li>
-</ul>
-</div>
-</div>
-`
-    const resultFinal = new Intern().generateIntern(answers);
-
-      expect(resultFinal).toEqual(resultHTML);
+    expect(answers.name).toEqual('Yel');
     });
+
+  it('Check the result of input in Github',()=>{
+    const answers = new Engineer('Yel', '2', 'yza@gmail.com', 'yelzaw');
+    
+    expect(answers.github).toEqual(expect.any(String));
+    expect(answers.github).toEqual('yelzaw');
+  })
+
+  it('Get Role',()=>{
+    const answers = new Engineer('Yel', '2', 'yza@gmail.com', 'yelzaw');
+
+    expect(answers.getRole()).toEqual('Engineer');
+  })
  });
