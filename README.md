@@ -16,6 +16,6 @@ MIT License
 
 ## Completed Works - Walkthrough Video Link and Github
 
-- Video [link](https://mega.nz/file/SgUgzLCa#2wodwO7LIwXvVcC_6FIQJk_z8xk8iey2wk_HnF2r5j0)
+- Video [link](https://youtu.be/07Tdhuay1qQ)
 
 - https://github.com/Yelzaw/team-profile-generator
